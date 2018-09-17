@@ -81,14 +81,16 @@ class CachedTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        performSegue(withIdentifier: "showDetail", sender: billData[indexPath.row])
+        performSegue(withIdentifier: "showDetail", sender: (billData[indexPath.row], indexPath.row))
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             let vc = segue.destination as! AuswertungsTableViewController
-            vc.bill = sender as? BillData2
-            vc.isDetail = true
+            let tuple = sender as! (BillData2, Int)
+            vc.bill = tuple.0
+            vc.billDataId = tuple.1
+            vc.useCase = AuswertungsTableViewController.UseCase.ablage
         }
     }
     

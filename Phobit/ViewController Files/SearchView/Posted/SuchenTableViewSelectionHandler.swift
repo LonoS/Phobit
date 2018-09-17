@@ -37,7 +37,7 @@ extension SuchenTableViewController {
         if segue.identifier == "showDetail" {
             let vc = segue.destination as! AuswertungsTableViewController
             vc.bill = sender as? BillData2
-            vc.isDetail = true
+            vc.useCase = AuswertungsTableViewController.UseCase.detail
         }
     }
 }

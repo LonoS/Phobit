@@ -115,7 +115,7 @@ extension AuswertungsTableViewController: EditingProtocol, SpaltenSelectionProto
             // merching it directly into the billdata object
             bill?.merchChanges(tableDict: tableDict!)
             
-            if isDetail && (bill?.rechnungsersteller != "Bitte Rechnungsersteller eigeben.") {
+            if (useCase == .detail) && (bill?.rechnungsersteller != "Bitte Rechnungsersteller eigeben.") {
                 self.navigationItem.title = bill?.rechnungsersteller
             }
             

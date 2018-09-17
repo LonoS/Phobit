@@ -10,6 +10,8 @@ import UIKit
 
 class LokaleAblage {
     
+    private let centralString = "\(UserData.getChoosen().email)_LOCAL_STORAGE"
+    
     func save(billdata: BillData2, image: UIImage?, target: UIViewController?) {
         if let image = image {
             // add image
@@ -28,18 +30,20 @@ class LokaleAblage {
         
         data.append(billdata)
         let encryptedData = NSKeyedArchiver.archivedData(withRootObject: data)
-        UserDefaults.standard.set(encryptedData, forKey: "\(UserData.getChoosen().email)_LOCAL_STORAGE")
+        UserDefaults.standard.set(encryptedData, forKey: centralString)
     }
     
-    // OVERWRITES!!!
-    func saveNewArray(billData: [BillData2], target: UIViewController?) {
-        let encryptedData = NSKeyedArchiver.archivedData(withRootObject: billData)
-        UserDefaults.standard.set(encryptedData, forKey: "\(UserData.getChoosen().email)_LOCAL_STORAGE")
+    func deleteBillData(withID id: Int) {
+        if var billdata = read() {
+            billdata.remove(at: id)
+            let encryptedData = NSKeyedArchiver.archivedData(withRootObject: billdata)
+            UserDefaults.standard.set(encryptedData, forKey: centralString)
+        }
     }
     
     func read() -> [BillData2]? {
         
-        if let data = UserDefaults.standard.data(forKey: String("\(UserData.getChoosen().email)_LOCAL_STORAGE")){
+        if let data = UserDefaults.standard.data(forKey: centralString) {
             //Decrypt Data and return
             let decryptedData = NSKeyedUnarchiver.unarchiveObject(with: data) as! [BillData2]
             return decryptedData
@@ -50,6 +54,6 @@ class LokaleAblage {
     }
     
     func clearCurrentAblage() {
-        UserDefaults.standard.removeObject(forKey: "\(UserData.getChoosen().email)_LOCAL_STORAGE")
+        UserDefaults.standard.removeObject(forKey: centralString)
     }
 }
