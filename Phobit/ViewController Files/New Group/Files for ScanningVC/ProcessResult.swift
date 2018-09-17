@@ -46,7 +46,7 @@ extension ScanningViewController {
             } else if statusCode == WebServiceStatus.systemCancelled || statusCode == WebServiceStatus.timeout {
                 // dissmissing the loading alertView...
                 alertView.dismiss(animated: false, completion: {
-                    DispatchQueue.main.sync {
+                    DispatchQueue.main.async {
                         self.overlay?.invisible()
                         self.cleanUp()
                     }

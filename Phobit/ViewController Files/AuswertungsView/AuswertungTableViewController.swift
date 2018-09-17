@@ -89,6 +89,8 @@ class AuswertungsTableViewController: UITableViewController{
             let deleteButton = UIBarButtonItem.init(barButtonSystemItem: .trash, target: self, action: #selector(deleteFromAblage))
             let shareButton = UIBarButtonItem.init(barButtonSystemItem: .action, target: self, action: #selector(share))
             
+            getImage()
+            
             navigationItem.rightBarButtonItems = [deleteButton, shareButton]
             
         case .detail:
@@ -245,7 +247,6 @@ class AuswertungsTableViewController: UITableViewController{
                 
                 let alert = UIAlertController.init(title: "Vorsicht.", message: "Du hast diese Rechnung bereits eingescanned. Bist du dir sicher das du sie ein zweites Mal speichern willst?", preferredStyle: .alert)
                 
-
                 present(alert, animated: true, completion: nil)
                 return
             }
@@ -256,15 +257,39 @@ class AuswertungsTableViewController: UITableViewController{
     }
     
     @objc func deleteFromAblage() {
-        
+        if let id = billDataId {
+            LokaleAblage.init().deleteBillData(withID: id)
+            
+            let alert = UIAlertController.init(title: "Gelöscht!", message: nil, preferredStyle: .alert)
+            present(alert, animated: true, completion: nil)
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+                alert.dismiss(animated: true, completion: {
+                    self.performSegue(withIdentifier: "unwindSegueToCached", sender: nil)
+                })
+            }
+        }
     }
     
     @objc func share() {
-        
+        if let gesamt = bill?.gesamtBrutto, let datum = bill?.datum, let verwendung = bill?.kontierung {
+            let str = "Rechnung vom \(datum), Verwendung: \(verwendung), Gesamtbetrag: \( CFormat.correctGeldbetrag(zahl: String(gesamt))) € \n\nGescannt mit Phobit. Deinem persönlichen Buchhaltungsassistenten."
+            guard let i = self.image else {
+                let activity = UIActivityViewController.init(activityItems: [str], applicationActivities: nil)
+                self.present(activity, animated: true, completion: nil)
+                return
+            }
+            
+            let activity = UIActivityViewController.init(activityItems: [i, str], applicationActivities: nil)
+            self.present(activity, animated: true, completion: nil)
+        }
     }
     
-    
+    // does not work in ablage mode
     private func showAlert(title : String, message: String, type : UIAlertControllerStyle){
+        
+        if useCase == .ablage {return;}
+        
         let alert = UIAlertController.init(title: title, message: message, preferredStyle: type)
         let okayAction = UIAlertAction.init(title: "Okay", style: .cancel, handler: nil)
         let ablageAction = UIAlertAction.init(title: "Lokal speichern und später bearbeiten", style: .default) { (alertAction) in
@@ -423,7 +448,7 @@ class AuswertungsTableViewController: UITableViewController{
         
         
         if let image = i.getImage(name: (bill?.imageURL)!) {
-            
+            self.image = image
             imagePicker.image = image
             self.noImgeFoundLBL.isHidden = true
         }

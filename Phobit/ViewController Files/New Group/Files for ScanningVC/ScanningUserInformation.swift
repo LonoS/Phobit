@@ -86,7 +86,7 @@ extension ScanningViewController {
         vc.loadView() // god's function
         let progressView = vc.progressView
         vc.webservice = webservice
-        vc.session = session
+        //vc.session = session
         vc.modalPresentationStyle = .overCurrentContext
         self.present(vc, animated: false, completion: nil)
         

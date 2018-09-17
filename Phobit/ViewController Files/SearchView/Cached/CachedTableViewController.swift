@@ -12,6 +12,8 @@ class CachedTableViewController: UITableViewController {
 
     @IBOutlet var noDataInfoView: UIView!
     
+    @IBAction func unwindToThis(segue:UIStoryboardSegue) { }
+    
     var billData = [BillData2]()
     
     fileprivate func loadData() {
@@ -52,6 +54,11 @@ class CachedTableViewController: UITableViewController {
         
         loadData()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadData()
+    }
 
     @objc func pageBack(){
         AppDelegate.snapContainer.scrollToPage(1)
@@ -81,11 +88,11 @@ class CachedTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        performSegue(withIdentifier: "showDetail", sender: (billData[indexPath.row], indexPath.row))
+        performSegue(withIdentifier: "showDetailFromCache", sender: (billData[indexPath.row], indexPath.row))
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetail" {
+        if segue.identifier == "showDetailFromCache" {
             let vc = segue.destination as! AuswertungsTableViewController
             let tuple = sender as! (BillData2, Int)
             vc.bill = tuple.0

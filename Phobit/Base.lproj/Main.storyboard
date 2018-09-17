@@ -305,9 +305,11 @@
                         <outlet property="informationSheet" destination="NVb-0g-FXp" id="5c9-eI-ckC"/>
                         <outlet property="noImgeFoundLBL" destination="8Gf-de-QuU" id="Xd5-5V-pHX"/>
                         <outlet property="scrollView" destination="agq-12-tQf" id="8J5-9C-Ab8"/>
+                        <segue destination="zAk-He-ucc" kind="unwind" identifier="unwindSegueToCached" unwindAction="unwindToThisWithSegue:" id="Pml-03-oaO"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kP7-Ub-8t0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="zAk-He-ucc" userLabel="Exit" sceneMemberID="exit"/>
                 <view contentMode="scaleToFill" id="NVb-0g-FXp">
                     <rect key="frame" x="0.0" y="0.0" width="317" height="87"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1248,6 +1250,7 @@ You can either contact us via the Feedback Option in the Settings-Menu or direct
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="noDataInfoView" destination="sgn-v6-VxQ" id="MH7-Bc-o3b"/>
+                        <segue destination="3mh-ot-eQ9" kind="show" identifier="showDetailFromCache" id="4zo-NX-KGu"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zbQ-rG-207" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2127,40 +2130,50 @@ Derzeit ist es leider nur möglich, Rechnungen mit QR-Code zu scannnen. Dies wir
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BvU-sS-6rj">
-                                <rect key="frame" x="38" y="248" width="300" height="171"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BvU-sS-6rj">
+                                <rect key="frame" x="38" y="248" width="300" height="245"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JK5-zO-aWU">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="133"/>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JK5-zO-aWU">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="131"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CPT-Wi-gfF">
+                                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CPT-Wi-gfF">
                                                 <rect key="frame" x="32" y="111" width="236" height="2"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </progressView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bitte warten..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="KlF-4l-w4J">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Bitte warten..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="KlF-4l-w4J">
                                                 <rect key="frame" x="32" y="19" width="236" height="84"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstItem="KlF-4l-w4J" firstAttribute="top" secondItem="JK5-zO-aWU" secondAttribute="top" constant="19" id="ALW-3D-3TZ"/>
-                                            <constraint firstItem="CPT-Wi-gfF" firstAttribute="leading" secondItem="KlF-4l-w4J" secondAttribute="leading" id="EpU-bT-Z2p"/>
-                                            <constraint firstAttribute="bottom" secondItem="CPT-Wi-gfF" secondAttribute="bottom" constant="20" id="Lgl-ZN-rR7"/>
-                                            <constraint firstItem="CPT-Wi-gfF" firstAttribute="trailing" secondItem="KlF-4l-w4J" secondAttribute="trailing" id="V1U-uP-ETH"/>
-                                            <constraint firstItem="CPT-Wi-gfF" firstAttribute="top" secondItem="KlF-4l-w4J" secondAttribute="bottom" constant="8" id="ac4-Hh-ZN7"/>
-                                            <constraint firstAttribute="trailing" secondItem="KlF-4l-w4J" secondAttribute="trailing" constant="32" id="b90-lb-WRX"/>
-                                            <constraint firstItem="KlF-4l-w4J" firstAttribute="leading" secondItem="JK5-zO-aWU" secondAttribute="leading" constant="32" id="gT2-kj-UPq"/>
-                                            <constraint firstItem="CPT-Wi-gfF" firstAttribute="top" secondItem="KlF-4l-w4J" secondAttribute="bottom" constant="8" id="plE-wB-Jd6"/>
-                                        </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cne-J8-m3U">
-                                        <rect key="frame" x="0.0" y="134" width="300" height="37"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ydL-0D-uXh">
+                                        <rect key="frame" x="0.0" y="170" width="300" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="37" id="bcW-mE-nXH"/>
-                                        </constraints>
+                                        <state key="normal" title="Lokal Speichern"/>
+                                        <connections>
+                                            <action selector="saveLocalButton:" destination="1V2-5U-t33" eventType="touchUpInside" id="KMB-lF-iXE"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="txV-lH-j4B">
+                                        <rect key="frame" x="0.0" y="132" width="300" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Ohne Erkennung fortfahren"/>
+                                        <connections>
+                                            <action selector="proceedWithoutRecognition:" destination="1V2-5U-t33" eventType="touchUpInside" id="488-48-KuW"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cne-J8-m3U">
+                                        <rect key="frame" x="0.0" y="208" width="300" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Abbrechen"/>
                                         <connections>
                                             <action selector="cancelButton:" destination="1V2-5U-t33" eventType="touchUpInside" id="aTY-y7-8ie"/>
@@ -2168,17 +2181,6 @@ Derzeit ist es leider nur möglich, Rechnungen mit QR-Code zu scannnen. Dies wir
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="Cne-J8-m3U" firstAttribute="leading" secondItem="BvU-sS-6rj" secondAttribute="leading" id="2Fs-ab-BjP"/>
-                                    <constraint firstAttribute="trailing" secondItem="Cne-J8-m3U" secondAttribute="trailing" id="8gl-Xz-869"/>
-                                    <constraint firstAttribute="width" constant="300" id="DV2-aN-BOy"/>
-                                    <constraint firstAttribute="trailing" secondItem="JK5-zO-aWU" secondAttribute="trailing" id="dpG-ka-g6S"/>
-                                    <constraint firstItem="JK5-zO-aWU" firstAttribute="top" secondItem="BvU-sS-6rj" secondAttribute="top" id="gJA-4y-jza"/>
-                                    <constraint firstItem="Cne-J8-m3U" firstAttribute="top" secondItem="JK5-zO-aWU" secondAttribute="bottom" constant="1" id="thp-I4-s7F"/>
-                                    <constraint firstItem="JK5-zO-aWU" firstAttribute="leading" secondItem="BvU-sS-6rj" secondAttribute="leading" id="uuQ-vu-Gmh"/>
-                                    <constraint firstAttribute="height" constant="171" id="xLT-6k-a81"/>
-                                    <constraint firstAttribute="bottom" secondItem="Cne-J8-m3U" secondAttribute="bottom" id="xuT-A0-Dpd"/>
-                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -2188,10 +2190,6 @@ Derzeit ist es leider nur möglich, Rechnungen mit QR-Code zu scannnen. Dies wir
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="BvU-sS-6rj" firstAttribute="centerX" secondItem="m3p-Jp-zmx" secondAttribute="centerX" id="D3o-j4-lhg"/>
-                            <constraint firstItem="BvU-sS-6rj" firstAttribute="centerY" secondItem="m3p-Jp-zmx" secondAttribute="centerY" id="y2r-vg-FqF"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="I33-50-thR"/>
                     </view>
                     <connections>
@@ -2437,5 +2435,6 @@ Derzeit ist es leider nur möglich, Rechnungen mit QR-Code zu scannnen. Dies wir
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="dS0-Tq-IpI"/>
+        <segue reference="4zo-NX-KGu"/>
     </inferredMetricsTieBreakers>
 </document>
